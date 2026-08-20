@@ -21,6 +21,24 @@ if [ -L "$DEST" ]; then
   esac
 fi
 
+# Git Bash's `ln -s` silently copies the directory instead of linking unless
+# Developer Mode is on, which leaves stale duplicates that never see repo edits.
+# Directory junctions need no privileges and behave like symlinks to bash, so
+# use those on Windows.
+case "$(uname -s)" in
+  MINGW*|MSYS*|CYGWIN*) WINDOWS=1 ;;
+  *)                    WINDOWS=0 ;;
+esac
+
+link() {
+  local src="$1" target="$2"
+  if [ "$WINDOWS" -eq 1 ]; then
+    cmd //c mklink //J "$(cygpath -w "$target")" "$(cygpath -w "$src")" >/dev/null
+  else
+    ln -sfn "$src" "$target"
+  fi
+}
+
 mkdir -p "$DEST"
 
 find "$REPO/skills" -name SKILL.md -not -path '*/node_modules/*' -not -path '*/deprecated/*' -print0 |
@@ -29,10 +47,15 @@ while IFS= read -r -d '' skill_md; do
   name="$(basename "$src")"
   target="$DEST/$name"
 
-  if [ -e "$target" ] && [ ! -L "$target" ]; then
-    rm -rf "$target"
-  fi
+  # Removing a link removes only the link; removing a real dir removes its
+  # contents, which is intended -- the repo is the source of truth.
+  rm -rf "$target"
 
-  ln -sfn "$src" "$target"
+  link "$src" "$target"
+
+  if [ ! -L "$target" ]; then
+    echo "error: $target is not a link -- refusing to leave a stale copy behind." >&2
+    exit 1
+  fi
   echo "linked $name -> $src"
 done
