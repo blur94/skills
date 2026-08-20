@@ -1,4 +1,13 @@
 {
   "name": "gilead-skills",
-  "skills": ["./skills/engineering/pr-description"]
+  "skills": [
+    "./skills/engineering/building-walkthroughs",
+    "./skills/engineering/good-ux-auditor",
+    "./skills/engineering/init-repo-memory",
+    "./skills/engineering/pr-description",
+    "./skills/engineering/prisma-v7-workflow",
+    "./skills/engineering/react-doc-viewer-integration",
+    "./skills/engineering/temporal-api",
+    "./skills/misc/ceo-pipeline"
+  ]
 }
