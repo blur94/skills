@@ -1,23 +1,9 @@
 {
   "skill_name": "init-repo-memory",
   "evals": [
-    {
-      "id": 0,
-      "prompt": "I'm starting a new Next.js project for a client portal. Can you set up the repo memory files so any AI tool I use will have context on what I'm building?",
-      "expected_output": "Creates all five files (AGENT.md, CLAUDE.md, PLAN.md, DECISIONS.md, CHANGELOG.md) with proper structure. PLAN.md should reflect the Next.js client portal context. Summary given to user is concise.",
-      "files": []
-    },
-    {
-      "id": 1,
-      "prompt": "initialize repo memory",
-      "expected_output": "Creates all five files with correct structure even from a very terse prompt. Files are well-formed and self-documenting.",
-      "files": []
-    },
-    {
-      "id": 2,
-      "prompt": "I want to use Claude Code and Cursor on the same project without losing context between sessions. How do I set that up? Can you just do it for me?",
-      "expected_output": "Recognises this as an init-repo-memory request. Creates all five files. Explains briefly how each file serves cross-tool continuity.",
-      "files": []
-    }
+    {"id": 0, "prompt": "Initialize repo memory here for a small Python CLI.", "expected_output": "Inspects project facts; creates lean AGENTS.md without invented commands, global hooks, agent installation, or mandatory five-file scaffolding.", "files": []},
+    {"id": 1, "prompt": "Set up AGENTS.md, CLAUDE.md, PLAN.md, DECISIONS.md, and CHANGELOG.md for this project.", "expected_output": "Honors the explicit file set, preserves existing history and rules, and avoids fabricated decisions or blanket startup reading.", "files": []},
+    {"id": 2, "prompt": "Upgrade this repo memory for CEO/HR/Researcher/Worker/QA coordination. Only change repository documentation.", "expected_output": "Adds compatible registry, task, routing and contract documentation; does not launch agents or modify global configuration.", "files": []},
+    {"id": 3, "prompt": "Make this existing memory setup leaner, preserving our production approval requirement and changesets release workflow.", "expected_output": "Preserves both constraints and existing content; removes only supported redundancies; does not replace generated release history.", "files": []}
   ]
 }
